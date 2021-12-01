@@ -1,10 +1,14 @@
 package com.example.scrapingapp.controller;
 
+import com.example.scrapingapp.dto.MealDto;
 import com.example.scrapingapp.dto.RestaurantDto;
 import com.example.scrapingapp.model.Meal;
 import com.example.scrapingapp.model.Restaurant;
 import com.example.scrapingapp.service.DataService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.mapper.Mapper;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +25,11 @@ public class DataController {
 
     private final DataService dataService;
 
-    public DataController(DataService dataService) {
+    private final ModelMapper modelMapper;
+
+    public DataController(DataService dataService, ModelMapper modelMapper) {
         this.dataService = dataService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping("/restaurants")
@@ -30,9 +37,9 @@ public class DataController {
         try {
 
             List<Restaurant> restaurants = dataService.getRestaurants();
+            RestaurantDto[] restaurantDtos = modelMapper.map(restaurants, RestaurantDto[].class);
 
-            List<RestaurantDto> restaurantDtoList = List.of(new RestaurantDto(), new RestaurantDto());
-            return new ResponseEntity<>(restaurantDtoList, HttpStatus.OK);
+            return new ResponseEntity<>(restaurantDtos, HttpStatus.OK);
         } catch (Exception e) {
             log.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -44,8 +51,8 @@ public class DataController {
         try {
 
             Restaurant restaurant = dataService.getRestaurant(id);
+            RestaurantDto restaurantDto = modelMapper.map(restaurant, RestaurantDto.class);
 
-            RestaurantDto restaurantDto = new RestaurantDto();
             return new ResponseEntity<>(restaurantDto, HttpStatus.OK);
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -58,9 +65,9 @@ public class DataController {
         try {
 
             List<Meal> meals = dataService.getMeals(restaurantId);
+            MealDto[] mealDtos = modelMapper.map(meals, MealDto[].class);
 
-            List<RestaurantDto> restaurantDtoList = List.of(new RestaurantDto(), new RestaurantDto());
-            return new ResponseEntity<>(restaurantDtoList, HttpStatus.OK);
+            return new ResponseEntity<>(mealDtos, HttpStatus.OK);
         } catch (Exception e) {
             log.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -72,9 +79,9 @@ public class DataController {
         try {
 
             Meal meal = dataService.getMeal(id);
+            MealDto mealDto = modelMapper.map(meal, MealDto.class);
 
-            RestaurantDto restaurantDto = new RestaurantDto();
-            return new ResponseEntity<>(restaurantDto, HttpStatus.OK);
+            return new ResponseEntity<>(mealDto, HttpStatus.OK);
         } catch (Exception e) {
             log.error(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
