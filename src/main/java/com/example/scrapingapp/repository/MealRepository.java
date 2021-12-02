@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface MealRepository extends MongoRepository<Meal, String> {
     List<Meal> findAllByRestaurantId(String id);
+    void deleteAllByRestaurantId(String restaurantId);
 }

@@ -15,11 +15,13 @@ import java.util.List;
 public class RestaurantDto {
     private String id;
     private String name;
+    private String url;
     private String address;
     private String img;
     private String description;
     private List<String> kitchens;
     private List<String> categories;
+    private Integer countMeals;
 
     private List<MealDto> meals = new ArrayList<>();
 }

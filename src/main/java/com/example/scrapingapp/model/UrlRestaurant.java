@@ -7,24 +7,18 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "restaurants")
-public class Restaurant {
+@Document(collection = "url_restaurants")
+public class UrlRestaurant {
 
     @Id
     private String id;
 
-    private String name;
-    private String address;
-    private String img;
     private String url;
-    private String description;
-    private List<String> kitchens;
-    private List<String> categories;
-    private Integer countMeals;
+    private String address;
+    private String deliver;
+    private String name;
 }
