@@ -18,8 +18,8 @@ public class RestaurantDto {
     private String address;
     private String img;
     private String description;
-    private String[] kitchens;
-    private String[] categories;
+    private List<String> kitchens;
+    private List<String> categories;
 
     private List<MealDto> meals = new ArrayList<>();
 }

@@ -7,10 +7,12 @@ import com.example.scrapingapp.repository.RestaurantRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.List;
 
 @SpringBootApplication
+@EnableScheduling
 public class ScrapingAppApplication implements CommandLineRunner {
 
     public ScrapingAppApplication(RestaurantRepository restaurantRepository, MealRepository mealRepository) {
@@ -18,12 +20,12 @@ public class ScrapingAppApplication implements CommandLineRunner {
         this.mealRepository = mealRepository;
     }
 
+    private final RestaurantRepository restaurantRepository;
+    private final MealRepository mealRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(ScrapingAppApplication.class, args);
     }
-
-    private final RestaurantRepository restaurantRepository;
-    private final MealRepository mealRepository;
 
     @Override
     public void run(String... args) throws Exception {
