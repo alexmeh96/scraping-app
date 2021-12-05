@@ -11,4 +11,6 @@ public interface UrlRestaurantService {
     void addUrl(String url, String address);
     void addUrl(String url, String address, String deliver);
     List<UrlRestaurant> getUrlRestaurants();
+
+    void deleteUrlById(String id);
 }

@@ -4,6 +4,7 @@ import com.example.scrapingapp.model.Meal;
 import com.example.scrapingapp.model.Restaurant;
 import com.example.scrapingapp.repository.MealRepository;
 import com.example.scrapingapp.repository.RestaurantRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,13 +16,16 @@ import java.util.List;
 @EnableScheduling
 public class ScrapingAppApplication implements CommandLineRunner {
 
+    private final RestaurantRepository restaurantRepository;
+    private final MealRepository mealRepository;
+
+    @Value("${driver.path}")
+    private String pathDriver;
+
     public ScrapingAppApplication(RestaurantRepository restaurantRepository, MealRepository mealRepository) {
         this.restaurantRepository = restaurantRepository;
         this.mealRepository = mealRepository;
     }
-
-    private final RestaurantRepository restaurantRepository;
-    private final MealRepository mealRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(ScrapingAppApplication.class, args);
@@ -29,7 +33,7 @@ public class ScrapingAppApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+        System.setProperty("webdriver.chrome.driver", pathDriver);
 //        initDB();
     }
 

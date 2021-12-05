@@ -41,7 +41,18 @@ public class UrlRestaurantController {
     @PostMapping("/addUrlRestaurant")
     public ResponseEntity<?> getUrlRestaurants(@RequestBody UrlRestaurantDto urlRestaurantDto) {
         try {
-            urlRestaurantService.addUrl(urlRestaurantDto.getUrl());
+            urlRestaurantService.addUrl(urlRestaurantDto.getUrl(), urlRestaurantDto.getAddress());
+            return new ResponseEntity<>("Success", HttpStatus.OK);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/deleteUrlById/{id}")
+    public ResponseEntity<?> deleteUrlById(@PathVariable String id) {
+        try {
+            urlRestaurantService.deleteUrlById(id);
             return new ResponseEntity<>("Success", HttpStatus.OK);
         } catch (Exception e) {
             log.error(e.getMessage());

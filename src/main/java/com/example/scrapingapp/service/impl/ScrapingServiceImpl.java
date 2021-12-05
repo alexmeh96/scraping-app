@@ -45,8 +45,6 @@ public class ScrapingServiceImpl implements ScrapingService {
             scrapRestaurant(urlRestaurant.getUrl());
         });
 
-
-
     }
 
     private void scrapRestaurant(String url) {

@@ -48,4 +48,9 @@ public class UrlRestaurantServiceImpl implements UrlRestaurantService {
     public List<UrlRestaurant> getUrlRestaurants() {
         return urlRestaurantRepository.findAll();
     }
+
+    @Override
+    public void deleteUrlById(String id) {
+        urlRestaurantRepository.deleteById(id);
+    }
 }
